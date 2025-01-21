@@ -31,8 +31,6 @@ kind: Service
 metadata:
   name: frontend-external
   namespace: frontend
-  annotations:
-    cloud.google.com/load-balancer-type: "Internal"
 spec:
   type: LoadBalancer
   selector:
