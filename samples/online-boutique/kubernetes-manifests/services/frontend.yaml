@@ -32,10 +32,33 @@ metadata:
   name: frontend-external
   namespace: frontend
 spec:
-  type: LoadBalancer
+  #type: LoadBalancer
   selector:
     app: frontend
   ports:
   - name: http
     port: 80
     targetPort: 8080
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend-ingress
+  namespace: frontend
+  annotations:
+   # kubernetes.io/ingress.class: "gce"
+    kubernetes.io/ingress.class: "gce-internal"
+    kubernetes.io/ingress.allow-http: "true"
+spec:
+ rules:
+ #- host: google.com
+  - http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: frontend-external
+            port:
+              number: 80
