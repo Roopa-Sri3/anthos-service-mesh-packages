@@ -32,7 +32,7 @@ metadata:
   name: frontend-external
   namespace: frontend
 spec:
-  #type: LoadBalancer
+  type: NodePort
   selector:
     app: frontend
   ports:
